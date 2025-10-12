@@ -29,9 +29,10 @@ const GameBoard = (() => {
         const selectedCell = board[row][column];
         if(selectedCell.getValue()){
             console.log("Cell has already been chosen")
-            return;
+            return -1;
         } 
         selectedCell.markCell(player.getMark());
+
     }
 
     const printBoard = () => {
@@ -134,7 +135,10 @@ const GameController =  (() => {
     }
 
     const playRound = (row,column) =>{
-        board.chooseCell(currentPlayer,row,column);
+        if(board.chooseCell(currentPlayer,row,column) === -1){
+            console.log("Please choose another cell!");
+            return;
+        }
         if(board.checkWin(currentPlayer.getMark())){
             board.printBoard();
             console.log(`${currentPlayer.getName()} has won the game!`);

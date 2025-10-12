@@ -45,10 +45,60 @@ const GameBoard = (() => {
         }
     }
 
+    const checkWin = (mark) => {
+        let matchingCounter = 0;
+        for(let i = 0 ; i < 3 ; i++){
+            matchingCounter = 0;
+            for(let j = 0; j < 3 ; j++){
+                if(board[i][j].getValue() !== mark)
+                    break;
+                matchingCounter++;
+            }
+            if (matchingCounter === 3){
+                return true;
+            }
+        }
+        for(let j = 0 ; j < 3 ; j++){
+            matchingCounter = 0;
+            for(let i = 0; i < 3 ; i++){
+                if(board[i][j].getValue() !== mark)
+                    break;
+                matchingCounter++;
+            }
+            if (matchingCounter === 3){
+                return true;
+            }
+        }
+
+        if (
+            board[0][0].getValue() === mark &&
+            board[1][1].getValue() === mark &&
+            board[2][2].getValue() === mark
+          )
+            return true;
+          
+          if (
+            board[0][2].getValue() === mark &&
+            board[1][1].getValue() === mark &&
+            board[2][0].getValue() === mark
+          )
+            return true;
+        return false;
+    }
+//
+//
+//  x o x   0
+//  o x 0   1
+//  o x o   2
+// 
+//  0 1 2
+//
+
     return {
         getBoard,
         chooseCell,
-        printBoard
+        printBoard,
+        checkWin
     }
 });
 
@@ -85,7 +135,11 @@ const GameController =  (() => {
 
     const playRound = (row,column) =>{
         board.chooseCell(currentPlayer,row,column);
-        //check for winner/tie
+        if(board.checkWin(currentPlayer.getMark())){
+            board.printBoard();
+            console.log(`${currentPlayer.getName()} has won the game!`);
+            return;
+        }
         switchCurrentPlayer();
         printNewRound();
     }
@@ -102,9 +156,9 @@ const GameController =  (() => {
 
 //
 //
-//  0 0 0   0
-//  0 0 0   1
-//  0 0 0   2
+//  x o x   0
+//  o x 0   1
+//  o x o   2
 // 
 //  0 1 2
 //

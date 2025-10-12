@@ -31,7 +31,7 @@ const GameBoard = (() => {
             console.log("Cell has already been chosen")
             return;
         } 
-        selectedCell.markCell(player);
+        selectedCell.markCell(player.getMark());
     }
 
     const printBoard = () => {
@@ -50,10 +50,54 @@ const GameBoard = (() => {
         chooseCell,
         printBoard
     }
+});
+
+function Player(name,mark){
+    const playerName = name;
+    const playerMark = mark
+    
+    const getName = () => playerName;
+    const getMark = () => playerMark;
+
+    return {
+        getName,
+        getMark
+    }
+}
+
+const GameController =  (() => {
+    const playerOne = Player("rzv","X");
+    const playerTwo = Player("Niko","0");
+    const board = GameBoard();
+
+    let currentPlayer = playerOne;
+
+    const switchCurrentPlayer = () => {
+        currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
+    }
+
+    const getCurrentPlayer = () => currentPlayer;
+
+    const printNewRound = () => {
+        board.printBoard();
+        console.log(`${getCurrentPlayer().getName()}' turn.`);
+    }
+
+    const playRound = (row,column) =>{
+        board.chooseCell(currentPlayer,row,column);
+        //check for winner/tie
+        switchCurrentPlayer();
+        printNewRound();
+    }
+
+    printNewRound();
+
+    return {
+        getCurrentPlayer,
+        playRound,
+    }
 })();
 
-GameBoard.chooseCell("X",1,2);
-GameBoard.printBoard();
 
 
 //

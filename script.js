@@ -6,7 +6,7 @@ function Cell(player) {
         value = player;
     }
 
-    const getValue = ()=> value;
+    const getValue = () => value;
     return {
         markCell,
         getValue
@@ -25,12 +25,11 @@ const GameBoard = (() => {
 
     const getBoard = () => board;
 
-    const chooseCell = (player,row,column) => {
+    const chooseCell = (player, row, column) => {
         const selectedCell = board[row][column];
-        if(selectedCell.getValue()){
-            console.log("Cell has already been chosen")
+        if (selectedCell.getValue()) {
             return -1;
-        } 
+        }
         selectedCell.markCell(player.getMark());
 
     }
@@ -48,25 +47,25 @@ const GameBoard = (() => {
 
     const checkWin = (mark) => {
         let matchingCounter = 0;
-        for(let i = 0 ; i < 3 ; i++){
+        for (let i = 0; i < 3; i++) {
             matchingCounter = 0;
-            for(let j = 0; j < 3 ; j++){
-                if(board[i][j].getValue() !== mark)
+            for (let j = 0; j < 3; j++) {
+                if (board[i][j].getValue() !== mark)
                     break;
                 matchingCounter++;
             }
-            if (matchingCounter === 3){
+            if (matchingCounter === 3) {
                 return true;
             }
         }
-        for(let j = 0 ; j < 3 ; j++){
+        for (let j = 0; j < 3; j++) {
             matchingCounter = 0;
-            for(let i = 0; i < 3 ; i++){
-                if(board[i][j].getValue() !== mark)
+            for (let i = 0; i < 3; i++) {
+                if (board[i][j].getValue() !== mark)
                     break;
                 matchingCounter++;
             }
-            if (matchingCounter === 3){
+            if (matchingCounter === 3) {
                 return true;
             }
         }
@@ -75,38 +74,53 @@ const GameBoard = (() => {
             board[0][0].getValue() === mark &&
             board[1][1].getValue() === mark &&
             board[2][2].getValue() === mark
-          )
+        )
             return true;
-          
-          if (
+
+        if (
             board[0][2].getValue() === mark &&
             board[1][1].getValue() === mark &&
             board[2][0].getValue() === mark
-          )
+        )
             return true;
         return false;
     }
-//
-//
-//  x o x   0
-//  o x 0   1
-//  o x o   2
-// 
-//  0 1 2
-//
+
+    const isTie = () => {
+        for (let i = 0; i < 3; i++)
+            for (let j = 0; j < 3; j++)
+                if (!board[i][j].getValue()) {
+                    return false;
+                }
+        return true;
+    }
+
+    // const resetBoard = () => {
+    //     for(row in board) {
+    //         for(column in row)
+    //             column.markCell("");
+    //     }
+    // }
+    const resetBoard = () => {
+        for (let i = 0; i < 3; i++)
+            for (let j = 0; j < 3; j++)
+                board[i][j].markCell("");
+    }
 
     return {
         getBoard,
         chooseCell,
         printBoard,
-        checkWin
+        checkWin,
+        isTie,
+        resetBoard
     }
 });
 
-function Player(name,mark){
+function Player(name, mark) {
     const playerName = name;
     const playerMark = mark
-    
+
     const getName = () => playerName;
     const getMark = () => playerMark;
 
@@ -116,9 +130,9 @@ function Player(name,mark){
     }
 }
 
-const GameController =  (() => {
-    const playerOne = Player("rzv","X");
-    const playerTwo = Player("Niko","0");
+const GameController = (() => {
+    const playerOne = Player("rzv", "X");
+    const playerTwo = Player("Niko", "0");
     const board = GameBoard();
 
     let currentPlayer = playerOne;
@@ -134,16 +148,24 @@ const GameController =  (() => {
         console.log(`${getCurrentPlayer().getName()}' turn.`);
     }
 
-    const playRound = (row,column) =>{
-        if(board.chooseCell(currentPlayer,row,column) === -1){
+    const playRound = (row, column) => {
+        if (board.chooseCell(currentPlayer, row, column) === -1) {
             console.log("Please choose another cell!");
             return;
         }
-        if(board.checkWin(currentPlayer.getMark())){
+        if (board.checkWin(currentPlayer.getMark())) {
             board.printBoard();
             console.log(`${currentPlayer.getName()} has won the game!`);
+            board.resetBoard();
             return;
         }
+
+        if (board.isTie()) {
+            console.log("Is tie");
+            board.resetBoard();
+            return;
+        }
+
         switchCurrentPlayer();
         printNewRound();
     }
@@ -166,3 +188,5 @@ const GameController =  (() => {
 // 
 //  0 1 2
 //
+//
+

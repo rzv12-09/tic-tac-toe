@@ -95,12 +95,6 @@ const GameBoard = (() => {
         return true;
     }
 
-    // const resetBoard = () => {
-    //     for(row in board) {
-    //         for(column in row)
-    //             column.markCell("");
-    //     }
-    // }
     const resetBoard = () => {
         for (let i = 0; i < 3; i++)
             for (let j = 0; j < 3; j++)
@@ -120,13 +114,18 @@ const GameBoard = (() => {
 function Player(name, mark) {
     const playerName = name;
     const playerMark = mark
+    let playerScore = 0;
 
     const getName = () => playerName;
     const getMark = () => playerMark;
+    const getScore = () => playerScore;
+    const incrementScore = () => playerScore++;
 
     return {
         getName,
-        getMark
+        getMark,
+        getScore,
+        incrementScore
     }
 }
 
@@ -148,6 +147,12 @@ const GameController = (() => {
         console.log(`${getCurrentPlayer().getName()}' turn.`);
     }
 
+    const printScore = () => {
+        console.log(`${playerOne.getName()}'s score: ${playerOne.getScore()}`);
+        console.log(`${playerTwo.getName()}'s score: ${playerTwo.getScore()}`);
+    }
+
+
     const playRound = (row, column) => {
         if (board.chooseCell(currentPlayer, row, column) === -1) {
             console.log("Please choose another cell!");
@@ -156,7 +161,13 @@ const GameController = (() => {
         if (board.checkWin(currentPlayer.getMark())) {
             board.printBoard();
             console.log(`${currentPlayer.getName()} has won the game!`);
+            currentPlayer.incrementScore();
+            printScore();
             board.resetBoard();
+            if(currentPlayer.getScore() < 3){
+                switchCurrentPlayer();
+                printNewRound();
+            }
             return;
         }
 
@@ -169,6 +180,8 @@ const GameController = (() => {
         switchCurrentPlayer();
         printNewRound();
     }
+
+
 
     printNewRound();
 

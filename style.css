@@ -26,16 +26,67 @@
   }
   
 :root {
-    --lt-color-blue-100 : #CDDFF7;
-    --lt-color-blue-200 : #ADD0FF;
-    --lt-color-blue-700: #7894F0;
+    --bg-primary: #191d2f;
+    --bg-secondary:#2f3243;
+    --btn-restart: #eb9e9e;
+    --btn-start-game:#506098;
+    --bg-cell: #464858;
 }
 
 body {
-    background-color: var(--lt-color-blue-100);
-    
+    background-color: var(--bg-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
 }
 
 .player-names-card {
-    background-color: var(--lt-color-blue-700);
+    background-color: var(--bg-secondary);
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+    padding: 1.4rem;
+    justify-content: space-around;
+    align-items: center;
+    height: 350px;
+    width: 18rem;
+    color: aliceblue;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.player-names-card div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.player-names-card input {
+    background-color: var(--bg-cell);
+    color:aliceblue;
+    padding: 8px;
+    border-radius: 10px;
+    border:none;
+    outline: none;
+    width: 50%;
+}
+
+.player-names-card p {
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+#start-game {
+    background-color: var(--btn-start-game);
+    color: aliceblue;
+    cursor:pointer;
+    border: none;
+    padding:8px;
+    width: 45%;
+    border-radius: 10px;
+}
+
+#start-game:hover {
+    background-color: #49578a;
 }

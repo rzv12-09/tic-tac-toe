@@ -129,9 +129,9 @@ function Player(name, mark) {
     }
 }
 
-const GameController = (() => {
-    const playerOne = Player("rzv", "X");
-    const playerTwo = Player("Niko", "0");
+const GameController = ((name1,name2) => {
+    const playerOne = Player(name1, "X");
+    const playerTwo = Player(name2, "0");
     const board = GameBoard();
 
     let currentPlayer = playerOne;
@@ -189,7 +189,7 @@ const GameController = (() => {
         getCurrentPlayer,
         playRound,
     }
-})();
+});
 
 
 

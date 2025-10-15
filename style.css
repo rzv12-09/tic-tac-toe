@@ -1,0 +1,41 @@
+/* Minimal CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  :root {
+    --blue-color:rgb(45, 103, 189);
+    --grey-color:rgb(216, 216, 216);
+  }
+
+  html, body {
+    height: 100%;
+    width: 100%;
+    font-size: 24px;
+  }
+  
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+  }
+  
+  input, button, textarea, select {
+    font: inherit;
+  }
+  
+:root {
+    --lt-color-blue-100 : #CDDFF7;
+    --lt-color-blue-200 : #ADD0FF;
+    --lt-color-blue-700: #7894F0;
+}
+
+body {
+    background-color: var(--lt-color-blue-100);
+    
+}
+
+.player-names-card {
+    background-color: var(--lt-color-blue-700);
+}

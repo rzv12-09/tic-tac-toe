@@ -1,4 +1,3 @@
-
 function Cell(player) {
     let value = "";
 
@@ -129,7 +128,7 @@ function Player(name, mark) {
     }
 }
 
-const GameController = ((name1,name2) => {
+const GameController = ((name1 = "Player One",name2 = "Player Two") => {
     const playerOne = Player(name1, "X");
     const playerTwo = Player(name2, "0");
     const board = GameBoard();
@@ -144,7 +143,7 @@ const GameController = ((name1,name2) => {
 
     const printNewRound = () => {
         board.printBoard();
-        console.log(`${getCurrentPlayer().getName()}' turn.`);
+        console.log(`${getCurrentPlayer().getName()}'s turn.`);
     }
 
     const printScore = () => {
@@ -189,17 +188,13 @@ const GameController = ((name1,name2) => {
         getCurrentPlayer,
         playRound,
     }
-});
+})();
 
+const startGameBtn = document.getElementById("start-game");
+startGameBtn.addEventListener("click",()=>{
+    const menuCard = document.querySelector(".player-names-card");
+    const gameContainer = document.querySelector(".game-container");
+    menuCard.style.display = "none";
+    gameContainer.style.display = "flex";
 
-
-//
-//
-//  x o x   0
-//  o x 0   1
-//  o x o   2
-// 
-//  0 1 2
-//
-//
-
+})

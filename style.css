@@ -90,3 +90,7 @@ body {
 #start-game:hover {
     background-color: #49578a;
 }
+
+.cell {
+  padding: 20px;
+}

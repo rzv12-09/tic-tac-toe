@@ -128,7 +128,7 @@ function Player(name, mark) {
     }
 }
 
-const GameController = ((name1 = "Player One",name2 = "Player Two") => {
+const GameController = (name1 = "Player One",name2 = "Player Two") => {
     const playerOne = Player(name1, "X");
     const playerTwo = Player(name2, "0");
     const board = GameBoard();
@@ -180,15 +180,50 @@ const GameController = ((name1 = "Player One",name2 = "Player Two") => {
         printNewRound();
     }
 
-
+    const getBoard = () => board.getBoard();
 
     printNewRound();
 
     return {
         getCurrentPlayer,
         playRound,
+        getBoard
     }
-})();
+};
+
+const ScreenController = (() => {
+    const playerNames = document.querySelectorAll("input");
+    const turnDiv = document.querySelector(".turn");
+    const boardDiv = document.querySelector(".board");
+    const optionsDiv = document.querySelector(".options");
+
+    const game = GameController(playerNames[0].value,playerNames[1].value);
+
+    const updateScreen = () => {
+        boardDiv.textContent = "";
+        const board = game.getBoard();
+        const currentPlayer = game.getCurrentPlayer();
+
+        turnDiv.textContent = `${currentPlayer.getName()}'s turn`;
+        board.forEach((row,rIndex) =>{ 
+           row.forEach((column,cIndex) => {
+                const cellButton = document.createElement("button");
+                cellButton.classList.add("cell");
+                cellButton.dataset.row = rIndex;
+                cellButton.dataset.column = cIndex;
+                cellButton.textContent = column.getValue();
+                boardDiv.appendChild(cellButton);
+           })
+        });
+    };
+    game.playRound(0,0);
+    game.playRound(0,1);
+    updateScreen();
+
+    return {
+        updateScreen,
+    }
+});
 
 const startGameBtn = document.getElementById("start-game");
 startGameBtn.addEventListener("click",()=>{
@@ -196,5 +231,5 @@ startGameBtn.addEventListener("click",()=>{
     const gameContainer = document.querySelector(".game-container");
     menuCard.style.display = "none";
     gameContainer.style.display = "flex";
-
+    ScreenController();
 })

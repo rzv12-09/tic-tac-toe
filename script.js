@@ -209,15 +209,18 @@ const ScreenController = (() => {
            row.forEach((column,cIndex) => {
                 const cellButton = document.createElement("button");
                 cellButton.classList.add("cell");
-                cellButton.dataset.row = rIndex;
-                cellButton.dataset.column = cIndex;
+                // cellButton.dataset.row = rIndex;
+                // cellButton.dataset.column = cIndex;
                 cellButton.textContent = column.getValue();
                 boardDiv.appendChild(cellButton);
+                cellButton.addEventListener("click",()=>{
+                    game.playRound(rIndex,cIndex);
+                    updateScreen();
+                })
            })
         });
     };
-    game.playRound(0,0);
-    game.playRound(0,1);
+
     updateScreen();
 
     return {

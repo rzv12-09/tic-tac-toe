@@ -128,7 +128,7 @@ function Player(name, mark) {
     }
 }
 
-const GameController = (name1 = "Player One",name2 = "Player Two") => {
+const GameController = (name1 = "Player One", name2 = "Player Two") => {
     const playerOne = Player(name1, "X");
     const playerTwo = Player(name2, "0");
     const board = GameBoard();
@@ -151,43 +151,42 @@ const GameController = (name1 = "Player One",name2 = "Player Two") => {
         console.log(`${playerTwo.getName()}'s score: ${playerTwo.getScore()}`);
     }
 
-
     const playRound = (row, column) => {
+
         if (board.chooseCell(currentPlayer, row, column) === -1) {
             console.log("Please choose another cell!");
-            return;
+            return -1;
         }
         if (board.checkWin(currentPlayer.getMark())) {
             board.printBoard();
             console.log(`${currentPlayer.getName()} has won the game!`);
             currentPlayer.incrementScore();
             printScore();
-            board.resetBoard();
-            if(currentPlayer.getScore() < 3){
-                switchCurrentPlayer();
-                printNewRound();
-            }
-            return;
+            //board.resetBoard();
+            return 1;
         }
 
         if (board.isTie()) {
             console.log("Is tie");
-            board.resetBoard();
-            return;
+            //board.resetBoard();
+            return 2;
         }
-
         switchCurrentPlayer();
         printNewRound();
     }
 
     const getBoard = () => board.getBoard();
+    const playersArray = [];
+    playersArray.push(playerOne, playerTwo);
 
+    const getPlayers = () => playersArray;
     printNewRound();
 
     return {
         getCurrentPlayer,
         playRound,
-        getBoard
+        getBoard,
+        getPlayers,
     }
 };
 
@@ -196,28 +195,56 @@ const ScreenController = (() => {
     const turnDiv = document.querySelector(".turn");
     const boardDiv = document.querySelector(".board");
     const optionsDiv = document.querySelector(".options");
+    const invalidMoveDiv = document.querySelector(".invalid-move");
+    const scoreboardDiv = document.querySelector(".scoreboard");
 
-    const game = GameController(playerNames[0].value,playerNames[1].value);
+    const game = GameController(playerNames[0].value, playerNames[1].value);
+
+    let gameActive = true;
 
     const updateScreen = () => {
         boardDiv.textContent = "";
+        scoreboardDiv.textContent = "";
+        invalidMoveDiv.textContent = ""
+
         const board = game.getBoard();
         const currentPlayer = game.getCurrentPlayer();
+        const playersArray = game.getPlayers();
 
-        turnDiv.textContent = `${currentPlayer.getName()}'s turn`;
-        board.forEach((row,rIndex) =>{ 
-           row.forEach((column,cIndex) => {
+        scoreboardDiv.textContent = `${playersArray[0].getName()}'s score: ${playersArray[0].getScore()}`;
+        scoreboardDiv.textContent += `${playersArray[1].getName()}'s score: ${playersArray[1].getScore()}`;
+
+        if(gameActive === true)
+            turnDiv.textContent = `${currentPlayer.getName()}'s turn`;
+
+
+
+        board.forEach((row, rIndex) => {
+            row.forEach((column, cIndex) => {
+        
                 const cellButton = document.createElement("button");
                 cellButton.classList.add("cell");
-                // cellButton.dataset.row = rIndex;
-                // cellButton.dataset.column = cIndex;
                 cellButton.textContent = column.getValue();
                 boardDiv.appendChild(cellButton);
-                cellButton.addEventListener("click",()=>{
-                    game.playRound(rIndex,cIndex);
+
+                if(gameActive === false)
+                    return;
+                cellButton.addEventListener("click", (e) => {
+                    result = game.playRound(rIndex, cIndex);
+                    if (result === -1) {
+                        invalidMoveDiv.textContent = "Choose another cell!";
+                        return;
+                    }
+                    if (result === 1) {
+                        turnDiv.textContent = `${currentPlayer.getName()} has won the game!`;
+                        gameActive = false;
+                        updateScreen();
+                        return;
+                    }
                     updateScreen();
+
                 })
-           })
+            })
         });
     };
 
@@ -229,7 +256,7 @@ const ScreenController = (() => {
 });
 
 const startGameBtn = document.getElementById("start-game");
-startGameBtn.addEventListener("click",()=>{
+startGameBtn.addEventListener("click", () => {
     const menuCard = document.querySelector(".player-names-card");
     const gameContainer = document.querySelector(".game-container");
     menuCard.style.display = "none";

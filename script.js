@@ -211,8 +211,14 @@ const ScreenController = (() => {
         const currentPlayer = game.getCurrentPlayer();
         const playersArray = game.getPlayers();
 
-        scoreboardDiv.textContent = `${playersArray[0].getName()}'s score: ${playersArray[0].getScore()}`;
-        scoreboardDiv.textContent += `${playersArray[1].getName()}'s score: ${playersArray[1].getScore()}`;
+        const playerOneScoreDiv = document.createElement("p"); 
+        playerOneScoreDiv.textContent = `${playersArray[0].getName()}'s score: ${playersArray[0].getScore()}`;
+        scoreboardDiv.appendChild(playerOneScoreDiv);
+
+        const playerTwoScoreDiv = document.createElement("p");
+        playerTwoScoreDiv.textContent += `${playersArray[1].getName()}'s score: ${playersArray[1].getScore()}`;
+        scoreboardDiv.appendChild(playerTwoScoreDiv);
+
 
         if(gameActive === true)
             turnDiv.textContent = `${currentPlayer.getName()}'s turn`;

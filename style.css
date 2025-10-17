@@ -1,96 +1,142 @@
 /* Minimal CSS Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  :root {
-    --blue-color:rgb(45, 103, 189);
-    --grey-color:rgb(216, 216, 216);
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  html, body {
-    height: 100%;
-    width: 100%;
-    font-size: 24px;
-  }
-  
-  img, picture, video, canvas, svg {
-    display: block;
-    max-width: 100%;
-  }
-  
-  input, button, textarea, select {
-    font: inherit;
-  }
-  
 :root {
-    --bg-primary: #191d2f;
-    --bg-secondary:#2f3243;
-    --btn-restart: #eb9e9e;
-    --btn-start-game:#506098;
-    --bg-cell: #464858;
+  --blue-color: rgb(45, 103, 189);
+  --grey-color: rgb(216, 216, 216);
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-size: 24px;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+:root {
+  --bg-primary: #191d2f;
+  --bg-secondary: #2f3243;
+  --btn-restart: #eb9e9e;
+  --btn-start-game: #506098;
+  --bg-cell: #464858;
 }
 
 body {
-    background-color: var(--bg-primary);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
+  background-color: var(--bg-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  height: 100vh;
 }
 
 .player-names-card {
-    background-color: var(--bg-secondary);
-    display: flex;
-    flex-direction: column;
-    border-radius: 30px;
-    padding: 1.4rem;
-    justify-content: space-around;
-    align-items: center;
-    height: 350px;
-    width: 18rem;
-    color: aliceblue;
-    text-align: center;
-    font-size: 0.9rem;
+  background-color: var(--bg-secondary);
+  display: flex;
+  flex-direction: column;
+  border-radius: 30px;
+  padding: 1.4rem;
+  justify-content: space-around;
+  align-items: center;
+  height: 350px;
+  width: 18rem;
+  color: aliceblue;
+  text-align: center;
+  font-size: 0.9rem;
 }
 
 .player-names-card div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .player-names-card input {
-    background-color: var(--bg-cell);
-    color:aliceblue;
-    padding: 8px;
-    border-radius: 10px;
-    border:none;
-    outline: none;
-    width: 50%;
+  background-color: var(--bg-cell);
+  color: aliceblue;
+  padding: 8px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  width: 50%;
 }
 
 .player-names-card p {
-    font-weight: bold;
-    font-size: 1.4rem;
+  font-weight: bold;
+  font-size: 1.4rem;
 }
 
 #start-game {
-    background-color: var(--btn-start-game);
-    color: aliceblue;
-    cursor:pointer;
-    border: none;
-    padding:8px;
-    width: 45%;
-    border-radius: 10px;
+  background-color: var(--btn-start-game);
+  color: aliceblue;
+  cursor: pointer;
+  border: none;
+  padding: 8px;
+  width: 45%;
+  border-radius: 10px;
 }
 
 #start-game:hover {
-    background-color: #49578a;
+  background-color: #49578a;
 }
 
 .cell {
   padding: 20px;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: aliceblue;
+  gap: 20px;
+  position: relative;
+  width: 400px;
+}
+
+.invalid-move {
+  position: absolute;
+  left: 26%;
+  bottom: 110%;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-template-rows: repeat(3,90px);
+}
+
+.scoreboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+}
+
+
+#nextBtn {
+  grid-column:1/3;
 }

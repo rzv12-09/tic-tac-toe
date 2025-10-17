@@ -241,6 +241,12 @@ const ScreenController = (() => {
                         updateScreen();
                         return;
                     }
+                    if (result === 2) {
+                        turnDiv.textContent = `It's a tie!`;
+                        gameActive = false;
+                        updateScreen();
+                        return;
+                    }
                     updateScreen();
 
                 })

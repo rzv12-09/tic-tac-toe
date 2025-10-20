@@ -5,16 +5,13 @@
   box-sizing: border-box;
 }
 
-:root {
-  --blue-color: rgb(45, 103, 189);
-  --grey-color: rgb(216, 216, 216);
-}
 
 html,
 body {
   height: 100%;
   width: 100%;
   font-size: 24px;
+  font-family: sans-serif;
 }
 
 img,
@@ -100,9 +97,7 @@ body {
   background-color: #49578a;
 }
 
-.cell {
-  padding: 20px;
-}
+
 
 .game-container {
   display: flex;
@@ -120,11 +115,19 @@ body {
   bottom: 110%;
 }
 
+
 .board {
   display: grid;
   grid-template-columns: repeat(3,1fr);
-  grid-template-rows: repeat(3,90px);
+  grid-template-rows: repeat(3,1fr);
+  gap: 5px;
+  border-radius: 20px;
+  height: 300px;
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
 }
+
 
 .scoreboard {
   display: flex;
@@ -134,9 +137,26 @@ body {
 .options {
   display: grid;
   grid-template-columns: repeat(2,1fr);
+  gap: 10px;
 }
 
+.options button {
+  border-radius: 10px;
+}
+
+.board button {
+  background-color: var(--bg-cell);
+  border: none;
+  color: whitesmoke;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.board button:hover {
+  background-color: var(--bg-secondary);
+}
 
 #nextBtn {
   grid-column:1/3;
+  grid-row: 1/2;
 }

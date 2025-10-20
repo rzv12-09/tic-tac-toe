@@ -132,7 +132,7 @@ function Player(name, mark) {
 
 const GameController = (name1 = "Player One", name2 = "Player Two") => {
     const playerOne = Player(name1, "X");
-    const playerTwo = Player(name2, "0");
+    const playerTwo = Player(name2, "O");
     const board = GameBoard();
 
     let currentPlayer = playerOne;

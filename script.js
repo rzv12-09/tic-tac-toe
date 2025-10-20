@@ -106,7 +106,7 @@ const GameBoard = (() => {
         printBoard,
         checkWin,
         isTie,
-        resetBoard
+        resetBoard,
     }
 });
 
@@ -180,6 +180,8 @@ const GameController = (name1 = "Player One", name2 = "Player Two") => {
     playersArray.push(playerOne, playerTwo);
 
     const getPlayers = () => playersArray;
+    const resetBoard = () => board.resetBoard();
+
     printNewRound();
 
     return {
@@ -187,6 +189,7 @@ const GameController = (name1 = "Player One", name2 = "Player Two") => {
         playRound,
         getBoard,
         getPlayers,
+        resetBoard
     }
 };
 
@@ -194,9 +197,9 @@ const ScreenController = (() => {
     const playerNames = document.querySelectorAll("input");
     const turnDiv = document.querySelector(".turn");
     const boardDiv = document.querySelector(".board");
-    const optionsDiv = document.querySelector(".options");
     const invalidMoveDiv = document.querySelector(".invalid-move");
     const scoreboardDiv = document.querySelector(".scoreboard");
+    const nextBtn = document.querySelector("#nextBtn");
 
     const game = GameController(playerNames[0].value, playerNames[1].value);
 
@@ -219,11 +222,8 @@ const ScreenController = (() => {
         playerTwoScoreDiv.textContent += `${playersArray[1].getName()}'s score: ${playersArray[1].getScore()}`;
         scoreboardDiv.appendChild(playerTwoScoreDiv);
 
-
         if(gameActive === true)
             turnDiv.textContent = `${currentPlayer.getName()}'s turn`;
-
-
 
         board.forEach((row, rIndex) => {
             row.forEach((column, cIndex) => {
@@ -258,7 +258,18 @@ const ScreenController = (() => {
                 })
             })
         });
+
+        
     };
+
+    nextBtn.addEventListener("click",()=>{
+        if (gameActive === false){
+            game.resetBoard();
+            gameActive = true;
+            updateScreen();
+        }
+    })
+    
 
     updateScreen();
 

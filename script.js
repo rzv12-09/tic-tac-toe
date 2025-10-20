@@ -119,12 +119,14 @@ function Player(name, mark) {
     const getMark = () => playerMark;
     const getScore = () => playerScore;
     const incrementScore = () => playerScore++;
+    const resetScore = () => playerScore = 0;
 
     return {
         getName,
         getMark,
         getScore,
-        incrementScore
+        incrementScore,
+        resetScore
     }
 }
 
@@ -181,6 +183,12 @@ const GameController = (name1 = "Player One", name2 = "Player Two") => {
 
     const getPlayers = () => playersArray;
     const resetBoard = () => board.resetBoard();
+    const resetGame = () => {
+        board.resetBoard();
+        playerOne.resetScore();
+        playerTwo.resetScore();
+        currentPlayer = playerOne;
+    }
 
     printNewRound();
 
@@ -189,7 +197,8 @@ const GameController = (name1 = "Player One", name2 = "Player Two") => {
         playRound,
         getBoard,
         getPlayers,
-        resetBoard
+        resetBoard,
+        resetGame
     }
 };
 
@@ -200,6 +209,7 @@ const ScreenController = (() => {
     const invalidMoveDiv = document.querySelector(".invalid-move");
     const scoreboardDiv = document.querySelector(".scoreboard");
     const nextBtn = document.querySelector("#nextBtn");
+    const resetBtn = document.querySelector("#resetBtn");
 
     const game = GameController(playerNames[0].value, playerNames[1].value);
 
@@ -270,6 +280,11 @@ const ScreenController = (() => {
         }
     })
     
+    resetBtn.addEventListener("click",()=>{
+        game.resetGame();
+        gameActive = true;
+        updateScreen();
+    })
 
     updateScreen();
 

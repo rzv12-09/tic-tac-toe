@@ -210,9 +210,11 @@ const ScreenController = (() => {
     const scoreboardDiv = document.querySelector(".scoreboard");
     const nextBtn = document.querySelector("#nextBtn");
     const resetBtn = document.querySelector("#resetBtn");
+    const settingsBtn = document.querySelector("#settingsBtn");
+    const menuCard = document.querySelector(".player-names-card");
+    const gameContainer = document.querySelector(".game-container");
 
     const game = GameController(playerNames[0].value, playerNames[1].value);
-
     let gameActive = true;
 
     const updateScreen = () => {
@@ -271,6 +273,12 @@ const ScreenController = (() => {
 
         
     };
+
+    settingsBtn.addEventListener("click",()=>{
+        game.resetGame();
+        menuCard.style.display = "flex";
+        gameContainer.style.display = "none";
+    })
 
     nextBtn.addEventListener("click",()=>{
         if (gameActive === false){

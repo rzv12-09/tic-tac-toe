@@ -217,6 +217,12 @@ const ScreenController = (() => {
     const game = GameController(playerNames[0].value, playerNames[1].value);
     let gameActive = true;
 
+    const styleNextBtn = () => {
+        nextBtn.style["background-color"] = "#9fff9c";
+        nextBtn.style.cursor = "pointer";
+        
+    }
+
     const updateScreen = () => {
         boardDiv.textContent = "";
         scoreboardDiv.textContent = "";
@@ -233,6 +239,11 @@ const ScreenController = (() => {
         const playerTwoScoreDiv = document.createElement("p");
         playerTwoScoreDiv.textContent += `${playersArray[1].getName()}'s score: ${playersArray[1].getScore()}`;
         scoreboardDiv.appendChild(playerTwoScoreDiv);
+        
+
+
+        if (gameActive === true)
+         nextBtn.style["background-color"] = "rgb(43, 43, 43)";
 
         if(gameActive === true)
             turnDiv.textContent = `${currentPlayer.getName()}'s turn`;
@@ -256,12 +267,14 @@ const ScreenController = (() => {
                     if (result === 1) {
                         turnDiv.textContent = `${currentPlayer.getName()} has won the game!`;
                         gameActive = false;
+                        styleNextBtn();
                         updateScreen();
                         return;
                     }
                     if (result === 2) {
                         turnDiv.textContent = `It's a tie!`;
                         gameActive = false;
+                        styleNextBtn();
                         updateScreen();
                         return;
                     }
@@ -282,9 +295,21 @@ const ScreenController = (() => {
 
     nextBtn.addEventListener("click",()=>{
         if (gameActive === false){
+           
             game.resetBoard();
             gameActive = true;
             updateScreen();
+        }
+    })
+
+    nextBtn.addEventListener("mouseover",()=>{
+        if (gameActive === false){
+           nextBtn.style["background-color"] = "#90e98d";
+        }
+    })
+    nextBtn.addEventListener("mouseout",()=>{
+        if (gameActive === false){
+           styleNextBtn();
         }
     })
     

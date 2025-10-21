@@ -33,9 +33,10 @@ select {
 :root {
   --bg-primary: #191d2f;
   --bg-secondary: #2f3243;
-  --btn-restart: #eb9e9e;
+  --btn-restart: #ff9c9c;
   --btn-start-game: #506098;
   --bg-cell: #464858;
+  --btn-next-round: #90e98d;
 }
 
 body {
@@ -97,32 +98,34 @@ body {
   background-color: #49578a;
 }
 
-
-
 .game-container {
   display: flex;
   flex-direction: column;
   text-align: center;
   color: aliceblue;
   gap: 20px;
-  position: relative;
-  width: 400px;
+  position: fixed;
+  width: 450px;
 }
 
 .invalid-move {
-  position: absolute;
-  left: 26%;
-  bottom: 110%;
+  height: 1.5rem;
+  color: #ff4646;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-align: center;
 }
-
+.invalid-move:empty {
+  visibility: hidden;
+}
 
 .board {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
-  grid-template-rows: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   gap: 5px;
   border-radius: 20px;
-  height: 300px;
+  height: 400px;
   width: 100%;
   border-radius: 20px;
   overflow: hidden;
@@ -132,16 +135,22 @@ body {
 .scoreboard {
   display: flex;
   flex-direction: column;
+  gap: 7px;
 }
 
 .options {
   display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
 }
 
 .options button {
   border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 10px;
+  outline: none;
+  border: none;
 }
 
 .board button {
@@ -157,6 +166,28 @@ body {
 }
 
 #nextBtn {
-  grid-column:1/3;
+  grid-column: 1/3;
   grid-row: 1/2;
+  background-color: rgb(43, 43, 43);
+}
+
+#resetBtn {
+  background-color: var(--btn-restart);
+}
+
+#resetBtn:hover {
+  background-color: #e08a8a;
+}
+
+#settingsBtn {
+  background-color: #969696;
+}
+
+#settingsBtn:hover {
+  background-color: #7a7a7a;
+}
+
+.turn {
+  font-size: 1.2rem;
+  font-weight: bold;
 }

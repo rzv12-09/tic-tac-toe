@@ -291,6 +291,7 @@ const ScreenController = (() => {
         game.resetGame();
         menuCard.style.display = "flex";
         gameContainer.style.display = "none";
+        gameActive = true;
     })
 
     nextBtn.addEventListener("click",()=>{

@@ -6,3 +6,6 @@ A simple **Tic Tac Toe** game built with JavaScript, HTML, and CSS as part of [T
 
 This project is a classic two-player **Tic Tac Toe** game.  
 It was created to practice **modular JavaScript**, **factory functions**, and **separation of concerns** between game logic and UI. 
+
+## Live Demo
+[View on GitHub Pages](https://rzv12-09.github.io/tic-tac-toe)
